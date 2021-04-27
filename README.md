@@ -1,8 +1,8 @@
 # VNCReInstall
-Use your network to reinstall the system online, With VNC support.
-Now only supports Debian 9/10 x32/x64.
-Also, UEFI boot devices are not currently supported.
-Tests are not run on the physical machine.
+Use your network to reinstall the system online, With VNC support.  
+Now only supports Debian 9/10 x32/x64.  
+Also, UEFI boot devices are not currently supported.  
+Tests are not run on the physical machine.  
 
 # Risk Warning
 This is still a project under development. Although it is currently in the main branch, please do not test it on any machine with data.
@@ -31,10 +31,13 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 * other: Due to many script modifications, other parameters may or may not be useful
 
 # VNC Support
-We use TigerVNC as the VNC server of the Debian installer, working on port 5900, without a password.
+We use TigerVNC as the VNC server of the Debian installer, working on port 5900, without a password.  
 During the installation process, you can connect to VNC to view the installation progress, solve installation problems, and avoid reinstallation failures.
 
 # Thanks
-* MoeClub.org
-* veip007
-* TigerVNC
+* [MoeClub.org](https://github.com/MoeClub)
+* [veip007](https://github.com/veip007)
+* [TigerVNC](https://tigervnc.org/)
+
+# Problem
+If you think the script has a bug, please submit ISSUE, of course, PR is also very welcome
