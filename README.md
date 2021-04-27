@@ -10,7 +10,7 @@ This is still a project under development. Although it is currently in the main 
 # Requirements
 * An **empty** host
 * 512M RAM
-* Good network connectivity
+* Good network connectivity(github deb.debian.org)
 * Independent IPV4 address
 * Open Port 5900
 
@@ -18,7 +18,7 @@ This is still a project under development. Although it is currently in the main 
 ## Install Debian 10 v64 (please fill network info and password by yourself)
 ```shell
 wget https://raw.githubusercontent.com/Erope/VNCReInstall/main/InstallNET_debian.sh
-bash Install_debian.sh --ip-addr --ip-gate --ip-mask -p 
+bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p 
 ```
 
 ## Parameter Description
