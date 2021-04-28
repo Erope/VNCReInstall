@@ -9,7 +9,7 @@ This is still a project under development. Although it is currently in the main 
 
 # Requirements
 * An **empty** host
-* 512M RAM
+* 512M RAM(**unstable**) | 1G RAM
 * Good network connectivity(github deb.debian.org)
 * Independent IPV4 address
 * Open Port 5900
@@ -33,6 +33,17 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 # VNC Support
 We use TigerVNC as the VNC server of the Debian installer, working on port 5900, without a password.  
 During the installation process, you can connect to VNC to view the installation progress, solve installation problems, and avoid reinstallation failures.
+
+# Possible problems
+## Multiple disks
+* First, the exact disk may not be automatically selected when partitioning disk for linux root. Please select by yourself through VNC
+* Secondly, the correct disk may not be selected when generating the grub file. Please enter the shell through VNC and generate the grub file by yourself
+
+## Cannot enter graphical installation mode or VNC cannot be connected
+The problem is complicated, the currently known possibility:
+* Low available memory (less than 1G). 512M can also be installed theoretically, but there is no strict test. 
+* A Fatal error occurred during installation. You need to seek help from your service provider. This possibility is small, but it cannot be ignored.
+* Failed to enter the installer. Maybe you need to confirm whether it is a UEFI device? If not please contact us.
 
 # Thanks
 * [MoeClub.org](https://github.com/MoeClub)
