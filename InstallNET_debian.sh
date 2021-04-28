@@ -465,7 +465,7 @@ chmod a+x /tmp/boot/usr/sbin/*
 echo "/usr/bin/x0vncserver -securitytypes none &" >> /tmp/boot/lib/debian-installer.d/S62Xorg
 
 # 重新设置低内存模式阈值 总内存500M以上(不稳定 等待测试)
-sed -i 's/534/500/' /tmp/boot/lib/debian-installer.d/S60frontend
+sed -i 's/534/440/' /tmp/boot/lib/debian-installer.d/S60frontend
 sed -i 's/\$y/\$x/' /tmp/boot/lib/debian-installer.d/S60frontend
 
 # 设置自动安装选项
