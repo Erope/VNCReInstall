@@ -34,6 +34,9 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 We use TigerVNC as the VNC server of the Debian installer, working on port 5900, without a password.  
 During the installation process, you can connect to VNC to view the installation progress, solve installation problems, and avoid reinstallation failures.
 
+# Contact us
+* Telegram: https://t.me/ShineNet_Q
+
 # Possible problems
 ## Multiple disks
 * First, the exact disk may not be automatically selected when partitioning disk for linux root. Please select by yourself through VNC
