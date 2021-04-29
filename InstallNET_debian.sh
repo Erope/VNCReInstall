@@ -483,6 +483,9 @@ echo "/usr/bin/x0vncserver -securitytypes none &" >> /tmp/boot/lib/debian-instal
 
 # 强制不进入低内存模式
 # 内存是否足够的逻辑在脚本中进行
+# 强行关闭低内存模式
+sed -i 's/1024/1/' /tmp/boot/lib/debian-installer-startup.d/S15lowmem
+# 强行开启Xorg
 sed -i 's/return 1/return 0/' /tmp/boot/lib/debian-installer.d/S60frontend
 
 # 设置自动安装选项
