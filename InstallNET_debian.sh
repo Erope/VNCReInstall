@@ -31,7 +31,7 @@ export UNKNOWHW='0'
 export UNVER='6.4'
 
 vnc_url='https://raw.githubusercontent.com/Erope/VNCReInstall/main'
-MEMLIMIT = 460
+MEMLIMIT=460
 
 # 默认参数设置
 while [[ $# -ge 1 ]]; do
