@@ -37,6 +37,13 @@ During the installation process, you can connect to VNC to view the installation
 # Contact us
 * Telegram: https://t.me/ShineNet_Q
 
+# Tested platforms
+* Ucloud 1G/2G
+* AWS 512M/1G/4G/8G
+* Buyvm 512M/4G
+
+Welcome to contact us to provide more data
+
 # Possible problems
 ## Multiple disks
 * First, the exact disk may not be automatically selected when partitioning disk for linux root. Please select by yourself through VNC
