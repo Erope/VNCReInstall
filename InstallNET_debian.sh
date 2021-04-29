@@ -170,7 +170,7 @@ fi
 
 # 判断内存
 get_mem () {
-  local ram=$(grep ^MemTotal: /proc/meminfo | { read x y z; echo $x; }) || true # in kilobytes
+  local ram=$(grep ^MemTotal: /proc/meminfo | { read x y z; echo $y; }) || true # in kilobytes
   if [ -z "$ram" ]; then
           ram=0
   else
