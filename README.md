@@ -41,13 +41,17 @@ During the installation process, you can connect to VNC to view the installation
 * Ucloud 1G/2G
 * AWS 512M/1G/4G/8G
 * Buyvm 512M/4G
+* Azure B1S
 
 Welcome to contact us to provide more data
 
 # Possible problems
-## Multiple disks
+## Multiple disks (Sloved)
 * First, the exact disk may not be automatically selected when partitioning disk for linux root. Please select by yourself through VNC
 * Secondly, the correct disk may not be selected when generating the grub file. Please enter the shell through VNC and generate the grub file by yourself
+
+### Update
+The multi-disk problem has been resolved, but a lot of testing is still needed.
 
 ## Cannot enter graphical installation mode or VNC cannot be connected
 The problem is complicated, the currently known possibility:
