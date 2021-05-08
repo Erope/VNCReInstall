@@ -30,7 +30,7 @@ export setInterfaceName='0'
 export UNKNOWHW='0'
 export UNVER='6.4'
 
-vnc_url='https://raw.githubusercontent.com/Erope/VNCReInstall/main'
+down_url='https://raw.githubusercontent.com/Erope/VNCReInstall/main'
 MEMLIMIT=460
 
 # 默认参数设置
@@ -181,6 +181,14 @@ get_mem () {
 
 if [ $(get_mem) -lt $MEMLIMIT ] ; then
   echo "Too Low Memory Or Get Memory Failed..."
+  exit 1
+fi
+
+# 检测硬盘
+disk=$(findmnt -n -e -o SOURCE  / | tr -d '0-9') || true
+uuid=$(blkid $disk -o value -s UUID) || true
+if [ -z "$disk" ]; then
+  echo "Detect System Disk Failed..."
   exit 1
 fi
 
@@ -475,11 +483,20 @@ mv -f "/boot/initrd.img" "/tmp/$NewIMG"
 $UNCOMP < /tmp/$NewIMG | cpio --extract --verbose --make-directories --no-absolute-filenames >>/dev/null 2>&1
 
 # 放入VNC
-wget -O /tmp/vnc.zip ${vnc_url}/vnc_${DIST}_${VER}.zip
+wget -O /tmp/vnc.zip ${down_url}/vnc_${DIST}_${VER}.zip
 unzip -d /tmp/boot/ /tmp/vnc.zip
-chmod a+x /tmp/boot/usr/bin/*
-chmod a+x /tmp/boot/usr/sbin/*
+chmod a+x /tmp/boot/usr/bin/x0vncserver
+chmod a+x /tmp/boot/usr/sbin/vncsession
 echo "/usr/bin/x0vncserver -securitytypes none &" >> /tmp/boot/lib/debian-installer.d/S62Xorg
+
+# 放入硬盘选择
+if [ ! -z "$uuid" ]; then
+  echo $uuid > /tmp/boot/disk_uuid
+fi
+echo $disk > /tmp/boot/disk_dev
+
+wget -O /tmp/boot/disk_select.sh ${down_url}/disk_select.sh
+chmod a+x /tmp/boot/disk_select.sh
 
 # 强制不进入低内存模式
 # 内存是否足够的逻辑在脚本中进行
@@ -526,6 +543,10 @@ d-i clock-setup/utc boolean true
 d-i time/zone string US/Eastern
 d-i clock-setup/ntp boolean true
 
+d-i partman/early_command string  \
+debconf-set partman-auto/disk "\$(/disk_select.sh)"; \
+debconf-set grub-installer/bootdev string "\$(/disk_select.sh)"; \
+
 d-i partman/mount_style select uuid
 d-i partman-auto/init_automatically_partition select Guided - use entire disk
 d-i partman-auto/choose_recipe select All files in one partition (recommended for new users)
@@ -556,7 +577,9 @@ d-i finish-install/reboot_in_progress note
 d-i debian-installer/exit/reboot boolean true
 d-i preseed/late_command string	\
 sed -ri 's/^#?PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config; \
-sed -ri 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config;
+sed -ri 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config; \
+mkdir /target/var/log/VNCReInstall/; \
+cp -R /var/log/ /target/var/log/VNCReInstall/;
 EOF
 
 [[ "$DIST" == 'xenial' ]] && {
