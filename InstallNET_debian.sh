@@ -184,14 +184,6 @@ if [ $(get_mem) -lt $MEMLIMIT ] ; then
   exit 1
 fi
 
-# 检测硬盘
-disk=$(findmnt -n -e -o SOURCE  / | tr -d '0-9') || true
-uuid=$(blkid $disk -o value -s UUID) || true
-if [ -z "$disk" ]; then
-  echo "Detect System Disk Failed..."
-  exit 1
-fi
-
 # 选择镜像
 function SelectMirror(){
   [ $# -ge 3 ] || exit 1
@@ -222,7 +214,16 @@ linux_relese=$(echo "$Relese" |sed 's/\ //g' |sed -r 's/(.*)/\L\1/')
 clear && echo -e "\nCheck Dependence\n"
 
 # 检查依赖
-CheckDependence wget,awk,grep,sed,cut,cat,cpio,gzip,find,dirname,basename,unzip,openssl,findmnt,blkid;
+CheckDependence wget,awk,grep,sed,cut,cat,cpio,gzip,find,dirname,basename,unzip,openssl,findmnt,blkid,lsblk;
+
+# 检测硬盘
+dpart=$(findmnt -n -e -o SOURCE  /) || true
+disk=$(lsblk -n -p -o PKNAME $dpart) || true
+uuid=$(blkid $disk -o value -s UUID) || true
+if [ -z "$disk" ]; then
+  echo "Detect System Disk Failed..."
+  exit 1
+fi
 
 # 确定引导grub/grub2
 if [[ "$loaderMode" == "0" ]]; then
