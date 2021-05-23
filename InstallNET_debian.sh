@@ -343,9 +343,9 @@ echo -e "$Relese $DIST $VER Downloading..."
 if [[ "$linux_relese" == 'debian' ]] || [[ "$linux_relese" == 'ubuntu' ]]; then
   inUpdate=''; [ "$linux_relese" == 'ubuntu' ] && inUpdate='-updates'
   # 修改图形化镜像
-  wget --no-check-certificate -qO '/boot/initrd.img' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/gtk/${linux_relese}-installer/${VER}/initrd.gz"
+  wget --no-check-certificate -qO '/boot/initrd.img.vnc' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/gtk/${linux_relese}-installer/${VER}/initrd.gz"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'initrd.img' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
-  wget --no-check-certificate -qO '/boot/vmlinuz' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/gtk/${linux_relese}-installer/${VER}/linux"
+  wget --no-check-certificate -qO '/boot/vmlinuz.vnc' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/gtk/${linux_relese}-installer/${VER}/linux"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'vmlinuz' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
   MirrorHost="$(echo "$LinuxMirror" |awk -F'://|/' '{print $2}')";
   MirrorFolder="$(echo "$LinuxMirror" |awk -F''${MirrorHost}'' '{print $2}')";
@@ -447,13 +447,13 @@ if [[ "$linux_relese" == 'debian' ]] || [[ "$linux_relese" == 'ubuntu' ]]; then
 fi
 
 [[ "$Type" == 'InBoot' ]] && {
-  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/boot\/vmlinuz $BOOT_OPTION" /tmp/grub.new;
-  sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/boot\/initrd.img" /tmp/grub.new;
+  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/boot\/vmlinuz.vnc $BOOT_OPTION" /tmp/grub.new;
+  sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/boot\/initrd.img.vnc" /tmp/grub.new;
 }
 
 [[ "$Type" == 'NoBoot' ]] && {
-  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/vmlinuz $BOOT_OPTION" /tmp/grub.new;
-  sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/initrd.img" /tmp/grub.new;
+  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/vmlinuz.vnc $BOOT_OPTION" /tmp/grub.new;
+  sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/initrd.img.vnc" /tmp/grub.new;
 }
 
 sed -i '$a\\n' /tmp/grub.new;
@@ -475,7 +475,7 @@ cd /tmp/boot;
 COMPTYPE="gzip";
 UNCOMP='gzip -d';
 NewIMG="initrd.img.gz"
-mv -f "/boot/initrd.img" "/tmp/$NewIMG"
+mv -f "/boot/initrd.img.vnc" "/tmp/$NewIMG"
 
 $UNCOMP < /tmp/$NewIMG | cpio --extract --verbose --make-directories --no-absolute-filenames >>/dev/null 2>&1
 
@@ -599,7 +599,7 @@ EOF
 
 fi
 
-find . | cpio -H newc --create --verbose | gzip -4 > /boot/initrd.img;
+find . | cpio -H newc --create --verbose | gzip -4 > /boot/initrd.img.vnc;
 rm -rf /tmp/boot;
 
 chown root:root $GRUBDIR/$GRUBFILE
@@ -610,9 +610,9 @@ if [[ "$loaderMode" == "0" ]]; then
 else
   rm -rf "$HOME/loader"
   mkdir -p "$HOME/loader"
-  cp -rf "/boot/initrd.img" "$HOME/loader/initrd.img"
-  cp -rf "/boot/vmlinuz" "$HOME/loader/vmlinuz"
-  [[ -f "/boot/initrd.img" ]] && rm -rf "/boot/initrd.img"
-  [[ -f "/boot/vmlinuz" ]] && rm -rf "/boot/vmlinuz"
+  cp -rf "/boot/initrd.img.vnc" "$HOME/loader/initrd.img.vnc"
+  cp -rf "/boot/vmlinuz.vnc" "$HOME/loader/vmlinuz.vnc"
+  [[ -f "/boot/initrd.img.vnc" ]] && rm -rf "/boot/initrd.img.vnc"
+  [[ -f "/boot/vmlinuz.vnc" ]] && rm -rf "/boot/vmlinuz.vnc"
   echo && ls -AR1 "$HOME/loader"
 fi
