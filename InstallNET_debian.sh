@@ -381,7 +381,7 @@ fi
 
 [[ "$GRUBVER" == '0' ]] && {
   READGRUB='/tmp/grub.read'
-  cat $GRUBDIR/$GRUBFILE |sed -n '1h;1!H;$g;s/\n/%%%%%%%/g;$p' |grep -om 1 'menuentry\ [^{]*{[^}]*}%%%%%%%' |sed 's/%%%%%%%/\n/g' >$READGRUB
+  cat $GRUBDIR/$GRUBFILE |sed -n '1h;1!H;$g;s/\n/%%%%%%%/g;$p' | sed 's/}"/!!!!!/g' | grep -om 1 'menuentry\ [^{]*{[^}]*}%%%%%%%' |sed 's/%%%%%%%/\n/g' | sed 's/!!!!!/}"/g'  >$READGRUB
   LoadNum="$(cat $READGRUB |grep -c 'menuentry ')"
   if [[ "$LoadNum" -eq '1' ]]; then
     cat $READGRUB |sed '/^$/d' >/tmp/grub.new;
@@ -462,10 +462,6 @@ fi
 GRUBPATCH='0';
 
 if [[ "$loaderMode" == "0" ]]; then
-[ -f '/etc/network/interfaces' -o -d '/etc/sysconfig/network-scripts' ] || {
-  echo "Error, Not found interfaces config.";
-  exit 1;
-}
 
 sed -i ''${INSERTGRUB}'i\\n' $GRUBDIR/$GRUBFILE;
 sed -i ''${INSERTGRUB}'r /tmp/grub.new' $GRUBDIR/$GRUBFILE;
