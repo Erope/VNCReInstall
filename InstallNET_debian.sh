@@ -447,12 +447,12 @@ if [[ "$linux_relese" == 'debian' ]] || [[ "$linux_relese" == 'ubuntu' ]]; then
 fi
 
 [[ "$Type" == 'InBoot' ]] && {
-  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/boot\/vmlinuz.vnc $BOOT_OPTION" /tmp/grub.new;
+  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/boot\/vmlinuz.vnc $BOOT_OPTION\\n\\t$LinuxIMG\\t\/boot\/initrd.img.vnc" /tmp/grub.new;
   sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/boot\/initrd.img.vnc" /tmp/grub.new;
 }
 
 [[ "$Type" == 'NoBoot' ]] && {
-  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/vmlinuz.vnc $BOOT_OPTION" /tmp/grub.new;
+  sed -i "/$LinuxKernel.*\//c\\\t$LinuxKernel\\t\/vmlinuz.vnc $BOOT_OPTION\\n\\t$LinuxIMG\\t\/initrd.img.vnc" /tmp/grub.new;
   sed -i "/$LinuxIMG.*\//c\\\t$LinuxIMG\\t\/initrd.img.vnc" /tmp/grub.new;
 }
 
