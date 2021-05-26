@@ -242,11 +242,10 @@ if [[ -n "$tmpVER" ]]; then
     VER='i386';
   fi
   if  [[ "$tmpVER" == '64' ]] || [[ "$tmpVER" == 'amd64' ]] || [[ "$tmpVER" == 'x86_64' ]] || [[ "$tmpVER" == 'x64' ]]; then
-    if [[ "$Relese" == 'Debian' ]] || [[ "$Relese" == 'Ubuntu' ]]; then
-      VER='amd64';
-    elif [[ "$Relese" == 'CentOS' ]]; then
-      VER='x86_64';
-    fi
+    VER='amd64';
+  fi
+  if  [[ "$tmpVER" == 'arm' ]] || [[ "$tmpVER" == 'arm64' ]] || [[ "$tmpVER" == 'aarch64' ]] || [[ "$tmpVER" == 'aarch' ]]; then
+    VER='arm64';
   fi
 fi
 [ -z "$VER" ] && VER='amd64'
@@ -267,6 +266,7 @@ if [[ -z "$DIST" ]]; then
       [[ -n $isDigital ]] && {
         [[ "$isDigital" == '9' ]] && DIST='stretch';
         [[ "$isDigital" == '10' ]] && DIST='buster';
+        [[ "$isDigital" == '11' ]] && DIST='bullseye';
       }
     }
     LinuxMirror=$(SelectMirror "$Relese" "$DIST" "$VER" "$tmpMirror")
@@ -289,6 +289,9 @@ if [[ -z "$DIST" ]]; then
   fi
 # 删除Centos7
 fi
+
+# ARM64仅支持bullseye
+[ "$VER" == "arm64" ] && [ "$DIST" != "bullseye" ] && echo "arm64 only support bullseye." && exit 1;
 
 if [[ -z "$LinuxMirror" ]]; then
   echo -ne "\033[31mError! \033[0mInvaild mirror! \n"
