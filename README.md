@@ -21,6 +21,7 @@ wget https://raw.githubusercontent.com/Erope/VNCReInstall/main/InstallNET_debian
 bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p 
 ```
 
+
 ## Parameter Description
 * --ip-addr: IP address
 * --ip-gate: Network gateway
@@ -28,6 +29,7 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 * -d|--debian: 9/10/11 default:10
 * -v|--ver: 32/64/arm64 default:64 Please notice that arm64 only support Debian11(Bullseye). Debian11(Bullseye) is still beta.
 * -p|--password: Your password, with num and letter
+* -firmware: Add support for non-free software. Support more devices. Maybe you should use it in some machine.
 * other: Due to many script modifications, other parameters may or may not be useful
 
 # VNC Support
