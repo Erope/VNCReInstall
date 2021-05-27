@@ -25,8 +25,8 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 * --ip-addr: IP address
 * --ip-gate: Network gateway
 * --ip-mask: Subnet mask like 255.255.0.0
-* -d|--debian: 9/10 
-* -v|--ver: 32/64
+* -d|--debian: 9/10/11 default:10
+* -v|--ver: 32/64/arm64 default:64 Please notice that arm64 only support Debian11(Bullseye). Debian11(Bullseye) is still beta.
 * -p|--password: Your password, with num and letter
 * other: Due to many script modifications, other parameters may or may not be useful
 
