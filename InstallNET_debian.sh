@@ -293,6 +293,9 @@ fi
 # ARM64仅支持bullseye
 [ "$VER" == "arm64" ] && [ "$DIST" != "bullseye" ] && echo "arm64 only support bullseye." && exit 1;
 
+now_arch=$(uname -m)
+[ "$now_arch" == "arm64" ] && [ "$VER" != "arm64" ] && echo "You may use arm64 machine. Please use -v arm64 -d 11." && exit 1;
+
 if [[ -z "$LinuxMirror" ]]; then
   echo -ne "\033[31mError! \033[0mInvaild mirror! \n"
   [ "$Relese" == 'Debian' ] && echo -en "\033[33mexample:\033[0m http://deb.debian.org/debian\n\n";
