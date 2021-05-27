@@ -31,7 +31,6 @@ export UNKNOWHW='0'
 export UNVER='6.4'
 
 down_url='https://raw.githubusercontent.com/Erope/VNCReInstall/main'
-MEMLIMIT=460
 
 # 默认参数设置
 while [[ $# -ge 1 ]]; do
@@ -137,6 +136,8 @@ while [[ $# -ge 1 ]]; do
   done
 
 [[ "$EUID" -ne '0' ]] && echo "Error:This script must be run as root!" && exit 1;
+MEMLIMIT=460
+[ "$IncFirmware" == "1" ] && MEMLIMIT=650;
 
 # 检查依赖
 function CheckDependence(){
