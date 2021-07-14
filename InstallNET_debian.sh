@@ -549,7 +549,7 @@ d-i clock-setup/ntp boolean true
 
 d-i partman/early_command string  \
 debconf-set partman-auto/disk "\$(/disk_select.sh)"; \
-debconf-set grub-installer/bootdev string "\$(/disk_select.sh)"; \
+debconf-set grub-installer/bootdev \$(/disk_select.sh); \
 
 d-i partman/mount_style select uuid
 d-i partman-auto/init_automatically_partition select Guided - use entire disk
@@ -569,7 +569,7 @@ d-i debian-installer/allow_unauthenticated boolean true
 
 tasksel tasksel/first multiselect minimal
 d-i pkgsel/update-policy select none
-d-i pkgsel/include string openssh-server
+d-i pkgsel/include string openssh-server curl wget net-tools
 d-i pkgsel/upgrade select none
 
 popularity-contest popularity-contest/participate boolean false
@@ -583,7 +583,7 @@ d-i preseed/late_command string	\
 sed -ri 's/^#?PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config; \
 sed -ri 's/^#?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config; \
 mkdir /target/var/log/VNCReInstall/; \
-cp -R /var/log/ /target/var/log/VNCReInstall/;
+cp -R /var/log/* /target/var/log/VNCReInstall/;
 EOF
 
 [[ "$DIST" == 'xenial' ]] && {
