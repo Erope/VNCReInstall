@@ -1,6 +1,6 @@
 # VNCReInstall
 Use your network to reinstall the system online, With VNC support.  
-Now only supports Debian 9/10 x32/x64.  
+Now only supports Debian 9/10/11/12 x32/x64/ARM64.  
 Also, UEFI boot devices are not currently supported.  
 Tests are not run on the physical machine.  
 
@@ -15,7 +15,7 @@ This is still a project under development. Although it is currently in the main 
 * Open Port 5900
 
 # Usage
-## Install Debian 10 v64 (please fill network info and password by yourself)
+## Install Debian 11 v64 (please fill network info and password by yourself)
 ```shell
 wget https://raw.githubusercontent.com/Erope/VNCReInstall/main/InstallNET_debian.sh
 bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p 
@@ -26,8 +26,8 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 * --ip-addr: IP address
 * --ip-gate: Network gateway
 * --ip-mask: Subnet mask like 255.255.0.0
-* -d|--debian: 9/10/11 default:10
-* -v|--ver: 32/64/arm64 default:64 Please notice that arm64 only support Debian11(Bullseye). Debian11(Bullseye) is still beta.
+* -d|--debian: 9/10/11/12 default:11
+* -v|--ver: 32/64/arm64 default:64 Please notice that arm64 only support Debian11(Bullseye) and above.
 * -p|--password: Your password, with num and letter
 * -firmware: Add support for non-free software. Support more devices. Maybe you should use it in some machine.
 * other: Due to many script modifications, other parameters may or may not be useful
