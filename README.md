@@ -1,7 +1,7 @@
 # VNCReInstall
 Use your network to reinstall the system online, With VNC support.  
 Now only supports Debian 9/10/11/12 x32/x64/ARM64.  
-Also, UEFI boot devices are not currently supported.  
+Also, UEFI boot devices are supported now.  
 Tests are not run on the physical machine.  
 
 # Risk Warning
