@@ -37,7 +37,7 @@ We use TigerVNC as the VNC server of the Debian installer, working on port 5900,
 During the installation process, you can connect to VNC to view the installation progress, solve installation problems, and avoid reinstallation failures.
 
 # Contact us
-* Telegram: https://t.me/ShineNet_Q
+* Telegram: https://t.me/ShineNET
 
 # Tested platforms
 * Ucloud 1G/2G
