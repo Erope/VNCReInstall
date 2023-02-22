@@ -36,9 +36,6 @@ bash InstallNET_debian.sh --ip-addr --ip-gate --ip-mask -p
 We use TigerVNC as the VNC server of the Debian installer, working on port 5900, without a password.  
 During the installation process, you can connect to VNC to view the installation progress, solve installation problems, and avoid reinstallation failures.
 
-# Contact us
-* Telegram: https://t.me/ShineNET
-
 # Tested platforms
 * Ucloud 1G/2G
 * AWS 512M/1G/4G/8G
