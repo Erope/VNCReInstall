@@ -293,7 +293,7 @@ if [[ -z "$DIST" ]]; then
 fi
 
 # ARM64仅支持bullseye
-[ "$VER" == "arm64" ] && [ "$DIST" != "bullseye" ] && echo "arm64 only support bullseye." && exit 1;
+[ "$VER" == "arm64" ] && ( [ "$DIST" != "bullseye" ] && [ "$DIST" != "bookworm" ] ) && echo "arm64 only supports bullseye and bookworm." && exit 1;
 
 now_arch=$(uname -m)
 [ "$now_arch" == "aarch64" ] && [ "$VER" != "arm64" ] && echo "You may use arm64 machine. Please use -v arm64 -d 11." && exit 1;
