@@ -570,6 +570,7 @@ d-i debian-installer/allow_unauthenticated boolean true
 
 tasksel tasksel/first multiselect minimal
 d-i pkgsel/update-policy select none
+d-i iperf3/start_daemon boolean false
 d-i pkgsel/include string openssh-server curl wget net-tools sudo iperf3
 d-i pkgsel/upgrade select none
 
