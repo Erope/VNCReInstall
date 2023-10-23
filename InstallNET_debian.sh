@@ -252,7 +252,7 @@ fi
 [ -z "$VER" ] && VER='amd64'
 
 if [[ -z "$tmpDIST" ]]; then
-  [ "$Relese" == 'Debian' ] && tmpDIST='bullseye';
+  [ "$Relese" == 'Debian' ] && tmpDIST='bookworm';
   # [ "$Relese" == 'Ubuntu' ] && tmpDIST='bionic' && DIST='bionic';
 fi
 
@@ -265,10 +265,10 @@ if [[ -z "$DIST" ]]; then
     [[ $? -eq '0' ]] && {
       isDigital="$(echo "$DIST" |grep -o '[\.0-9]\{1,\}' |sed -n '1h;1!H;$g;s/\n//g;$p' |cut -d'.' -f1)";
       [[ -n $isDigital ]] && {
-        [[ "$isDigital" == '9' ]] && DIST='stretch';
         [[ "$isDigital" == '10' ]] && DIST='buster';
         [[ "$isDigital" == '11' ]] && DIST='bullseye';
         [[ "$isDigital" == '12' ]] && DIST='bookworm';
+        [[ "$isDigital" == '13' ]] && DIST='trixie';
       }
     }
     LinuxMirror=$(SelectMirror "$Relese" "$DIST" "$VER" "$tmpMirror")
@@ -292,7 +292,7 @@ if [[ -z "$DIST" ]]; then
 # 删除Centos7
 fi
 
-# ARM64仅支持bullseye
+# ARM64仅支持bullseye和bookworm
 [ "$VER" == "arm64" ] && ( [ "$DIST" != "bullseye" ] && [ "$DIST" != "bookworm" ] ) && echo "arm64 only supports bullseye and bookworm." && exit 1;
 
 now_arch=$(uname -m)
